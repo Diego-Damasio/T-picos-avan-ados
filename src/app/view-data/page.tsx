@@ -1,4 +1,3 @@
-// app/view-data/page.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
 
@@ -15,7 +14,8 @@ const ViewData: React.FC = () => {
                     throw new Error('Erro ao buscar dados');
                 }
                 const data = await response.json();
-                setDataList(data);
+                console.log(data); // Verifica o que está vindo da API
+                setDataList(data); // Atualiza o estado sem concatenar os dados anteriores
             } catch (error: any) {
                 setError(error.message);
             } finally {
@@ -29,24 +29,25 @@ const ViewData: React.FC = () => {
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
     return (
-        <><div>
-            <h1>Dados do Formulário</h1>
-            <ul>
-                {dataList.length > 0 ? (
-                    dataList.map((item, index) => (
-                        <li key={index}>
-                            <strong>Nome:</strong> {item.nome} <br />
-                            <strong>Email:</strong> {item.email} <br />
-                            <strong>Mensagem:</strong> {item.mensagem}
-                        </li>
-                    ))
-                ) : (
-                    <p>Nenhum dado encontrado.</p>
-                )}
-            </ul>
-        </div>
-        <div>
-        <button onClick={() => window.location.href = '/'} style={{
+        <>
+            <div>
+                <h1>Dados do Formulário</h1>
+                <ul>
+                    {dataList.length > 0 ? (
+                        dataList.map((item, index) => (
+                            <li key={index}>
+                                <strong>Nome:</strong> {item.nome} <br />
+                                <strong>Email:</strong> {item.email} <br />
+                                <strong>Mensagem:</strong> {item.mensagem}
+                            </li>
+                        ))
+                    ) : (
+                        <p>Nenhum dado encontrado.</p>
+                    )}
+                </ul>
+            </div>
+            <div>
+                <button onClick={() => window.location.href = '/'} style={{
                     padding: '10px 20px',
                     backgroundColor: '#0070f3',
                     color: '#fff',
@@ -57,7 +58,8 @@ const ViewData: React.FC = () => {
                 }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#005bb5'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0070f3'}>
                     Voltar
                 </button>
-</div></>
+            </div>
+        </>
     );
 };
 
